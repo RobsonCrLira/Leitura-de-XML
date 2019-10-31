@@ -20,14 +20,14 @@ def extractNFeData(xml):
     emits = doc.getElementsByTagName("emit")
 
     for emit in emits:
-        nfeData.append(ide.getElementsByTagName("CNPJ")[0].childNodes[0].nodeValues)
-        nfeData.append(ide.getElementsByTagName("xNome")[0].childNodes[0].nodeValues)
+        nfeData.append(emit.getElementsByTagName("CNPJ")[0].childNodes[0].nodeValues)
+        nfeData.append(emit.getElementsByTagName("xNome")[0].childNodes[0].nodeValues)
 
     dests = doc.getElementsByTagName("dest")
 
     for dest in dests:
-        nfeData.append(ide.getElementsByTagName("CNPJ")[0].childNodes[0].nodeValues)
-        nfeData.append(ide.getElementsByTagName("xNome")[0].childNodes[0].nodeValues)
+        nfeData.append(dest.getElementsByTagName("CNPJ")[0].childNodes[0].nodeValues)
+        nfeData.append(dest.getElementsByTagName("xNome")[0].childNodes[0].nodeValues)
 
     return nfeData
 
@@ -60,7 +60,7 @@ def extractNFeProd(xml):
             nfeDetalhe.append(prod.getElementsByTagName("vUnCom")[0].childNodes[0].nodeValue)
             nfeDetalhe.append(prod.getElementsByTagName("vProd")[0].childNodes[0].nodeValue)
 
-        nfeDetalhe.append(det.getElementsByTagName("infAdProd")[0].childNodes[0].nodeValue)
+        nfeDetalhe.append(prod.getElementsByTagName("infAdProd")[0].childNodes[0].nodeValue)
 
         nfeDetalhes.append(nfeDetalhe)
         nfeDetalhe = []
