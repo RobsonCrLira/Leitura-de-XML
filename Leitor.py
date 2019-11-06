@@ -1,14 +1,12 @@
 import os
 import shutil
 import sys
-from xml.dom import minidom
+from xml.dom.minidom import parse
 from docutils.nodes import docinfo
 
-xml = None
-
-
-def extractNFeData(xml):
-    doc = minidom.parse(xml)
+def extractNFeData(xmle):
+    xml = xmle
+    doc = parse(xml)
     node = doc.documentElement
     nfeData = []
 
@@ -20,22 +18,22 @@ def extractNFeData(xml):
     emits = doc.getElementsByTagName("emit")
 
     for emit in emits:
-        nfeData.append(emit.getElementsByTagName("CNPJ")[0].childNodes[0].nodeValues)
-        nfeData.append(emit.getElementsByTagName("xNome")[0].childNodes[0].nodeValues)
+        nfeData.append(emit.getElementsByTagName("CNPJ")[0].childNodes[0].nodeValue)
+        nfeData.append(emit.getElementsByTagName("xNome")[0].childNodes[0].nodeValue)
 
     dests = doc.getElementsByTagName("dest")
 
     for dest in dests:
-        nfeData.append(dest.getElementsByTagName("CNPJ")[0].childNodes[0].nodeValues)
-        nfeData.append(dest.getElementsByTagName("xNome")[0].childNodes[0].nodeValues)
+        nfeData.append(dest.getElementsByTagName("CNPJ")[0].childNodes[0].nodeValue)
+        nfeData.append(dest.getElementsByTagName("xNome")[0].childNodes[0].nodeValue)
 
     return nfeData
 
 
 # Dados de Produtos
-def extractNFeProd(xml):
-    doc = minidom.parse(xml)
-    node = doc.documentEmement
+def extractNFeProd(xmle):
+    doc = parse(xmle)
+    node = doc.documentElement
     nfeDetalhe = []
     nfeDetalhes = []
     nfeNumero = None
@@ -59,8 +57,6 @@ def extractNFeProd(xml):
             nfeDetalhe.append(prod.getElementsByTagName("uCom")[0].childNodes[0].nodeValue)
             nfeDetalhe.append(prod.getElementsByTagName("vUnCom")[0].childNodes[0].nodeValue)
             nfeDetalhe.append(prod.getElementsByTagName("vProd")[0].childNodes[0].nodeValue)
-
-        nfeDetalhe.append(prod.getElementsByTagName("infAdProd")[0].childNodes[0].nodeValue)
 
         nfeDetalhes.append(nfeDetalhe)
         nfeDetalhe = []
